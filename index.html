@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Quiz Game</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="container">
+    <h1>🎯 Quiz Game</h1>
+
+    <!-- 👇 ADD THIS LINE HERE -->
+   
+
+    <form method="POST">
+        {% for q in questions %}
+            <div class="question">
+                <p>{{ q["question"] }}</p>
+
+                {% for option in q["options"] %}
+                    <label>
+                        <input type="radio" name="q{{ loop.index0 }}" value="{{ option }}" required>
+                        {{ option }}
+                    </label><br>
+                {% endfor %}
+            </div>
+        {% endfor %}
+
+        <button type="submit">Submit</button>
+    </form>
+
+    {% if score is not none %}
+        <h2>Your Score: {{ score }} / {{ questions|length }}</h2>
+    {% endif %}
+</div>
+
+</body>
+</html>
